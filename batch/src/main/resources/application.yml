@@ -6,7 +6,7 @@ spring:
     username: klaatus                            # DB 사용자 이름
     password: 1234                            # DB 비밀번호
     driver-class-name: com.mysql.cj.jdbc.Driver  # MySQL JDBC 드라이버
-    schema: classpath:schema-mysql.sql  # 실행할 SQL 파일 경로 설정
+
   batch:
     jdbc:
       initialize-schema: always                  # Spring Batch 테이블 자동 생성 (필요 시 never로 설정)
@@ -15,6 +15,7 @@ spring:
   sql:
     init:
       mode: always
+      schema-locations: classpath:schema-mysql.sql
   jpa:
     hibernate:
       ddl-auto: update                           # 스키마 자동 업데이트 (운영 환경에서는 조심해서 사용)
