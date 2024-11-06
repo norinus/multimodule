@@ -350,6 +350,23 @@ CREATE TABLE IF NOT EXISTS `tbl_member_role` (
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
+DROP TABLE IF EXISTS `tbl_member_shipping_address`;
+create table tbl_member_shipping_address
+(
+    `id`    bigint NOT NULL AUTO_INCREMENT primary key,
+    `address`            varchar(150)         not null,
+    `post_code`          varchar(16)          not null,
+    `is_activated`       tinyint(1) default 0 not null,
+    `is_deleted`         tinyint(1) default 0 not null,
+    `created_by`         varchar(120)         not null,
+    `created_date`       timestamp            not null,
+    `last_modified_by`   varchar(120)         not null,
+    `last_modified_date` timestamp            not null,
+    `member_id`          bigint                  not null,
+    CONSTRAINT `tbl_member_shipping_address_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`)
+);
+
+
 -- 테이블 klaatus.tbl_notice 구조 내보내기
 DROP TABLE IF EXISTS `tbl_notice`;
 CREATE TABLE IF NOT EXISTS `tbl_notice` (
