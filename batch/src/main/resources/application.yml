@@ -18,7 +18,7 @@ spring:
       schema-locations: classpath:schema-mysql.sql
   jpa:
     hibernate:
-      ddl-auto: update                           # 스키마 자동 업데이트 (운영 환경에서는 조심해서 사용)
+      ddl-auto: update                           # 스키마 자동 업데이트 (운영 환경에서는 사용하지 말것)
     show-sql: true                               # SQL 출력
     properties:
       hibernate:
