@@ -12,6 +12,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 /**
@@ -36,7 +37,7 @@ public abstract class AbstractAuditingEntity implements Serializable {
     @Column(name = "created_date", updatable = false)
     @JsonIgnore
     @CreatedDate
-    private LocalDateTime createdDate;
+    private Instant createdDate;
 
     // 수정 시 값을 변경
     @JsonIgnore
@@ -44,27 +45,26 @@ public abstract class AbstractAuditingEntity implements Serializable {
     @LastModifiedBy
     private String LastModifiedBy;
 
-
     // 수정 시 값을 변경
     @JsonIgnore
     @Column(name = "last_modified_date", nullable = false)
     @LastModifiedDate
-    private LocalDateTime lastModifiedDate;
+    private Instant lastModifiedDate;
 
     // 엔티티가 처음 저장되기 전에 호출 (createdDate, updatedDate 초기화)
     @PrePersist
     public void prePersist() {
         if (createdDate == null) {
-            this.createdDate = LocalDateTime.now();
+            this.createdDate = Instant.now();
         }
         if (lastModifiedDate == null) {
-            this.lastModifiedDate = LocalDateTime.now();
+            this.lastModifiedDate = Instant.now();
         }
     }
 
     // 엔티티가 업데이트되기 전에 호출 (updatedDate 갱신)
     @PreUpdate
     public void preUpdate() {
-        this.lastModifiedDate = LocalDateTime.now();
+        this.lastModifiedDate = Instant.now();
     }
 }

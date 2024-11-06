@@ -21,11 +21,11 @@ public class QAbstractAuditingEntity extends EntityPathBase<AbstractAuditingEnti
 
     public final StringPath createdBy = createString("createdBy");
 
-    public final DateTimePath<java.time.LocalDateTime> createdDate = createDateTime("createdDate", java.time.LocalDateTime.class);
+    public final DateTimePath<java.time.Instant> createdDate = createDateTime("createdDate", java.time.Instant.class);
 
     public final StringPath LastModifiedBy = createString("LastModifiedBy");
 
-    public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = createDateTime("lastModifiedDate", java.time.LocalDateTime.class);
+    public final DateTimePath<java.time.Instant> lastModifiedDate = createDateTime("lastModifiedDate", java.time.Instant.class);
 
     public QAbstractAuditingEntity(String variable) {
         super(AbstractAuditingEntity.class, forVariable(variable));
