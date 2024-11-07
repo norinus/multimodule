@@ -7,18 +7,24 @@ spring:
     password: 1234                            # DB 비밀번호
     driver-class-name: com.mysql.cj.jdbc.Driver  # MySQL JDBC 드라이버
 
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+    rollback-file: classpath:db/changelog/db.rollback.xml
+    enabled: true
+
   batch:
     jdbc:
       initialize-schema: always                  # Spring Batch 테이블 자동 생성 (필요 시 never로 설정)
     job:
       enabled: false
+
   sql:
     init:
       mode: always
       schema-locations: classpath:schema-mysql.sql
   jpa:
     hibernate:
-      ddl-auto: update                           # 스키마 자동 업데이트 (운영 환경에서는 사용하지 말것)
+      ddl-auto: none                           # 스키마 자동 업데이트 update, create (운영 환경에서는 사용하지 말것)
     show-sql: true                               # SQL 출력
     properties:
       hibernate:
@@ -32,6 +38,10 @@ logging:
   level:
     root: INFO                                   # 기본 로그 레벨
     org.springframework.web: DEBUG               # Spring Web 로그 레벨
+    com.querydsl.sql: DEBUG
 
 server:
   port: 8082                                     # 서버 포트
+
+
+## schema-mysql.sql MYSQ용 배치 테이블 생성 DDL 테이블 생성 되지 않는 경우 실행할것

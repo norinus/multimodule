@@ -48,8 +48,17 @@ subprojects {
 		testCompileOnly 'org.projectlombok:lombok'          // Lombok을 테스트에서 사용
 		testAnnotationProcessor 'org.projectlombok:lombok'  // Lombok을 테스트에서 사용할 때 어노테이션 프로세서 적용
 
-		// https://mvnrepository.com/artifact/mysql/mysql-connector-java
-		implementation 'mysql:mysql-connector-java:8.0.33'
+		// https://mvnrepository.com/artifact/org.liquibase/liquibase-core
+		implementation 'org.liquibase:liquibase-core:4.30.0'
+		// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+		implementation 'org.apache.commons:commons-lang3:3.17.0'
+
+		implementation 'org.apache.commons:commons-collections4:4.4' // 컬렉션 유틸리티
+
+		// https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
+		implementation 'com.mysql:mysql-connector-j:9.1.0'
+
+		implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
 
 		testImplementation('org.springframework.boot:spring-boot-starter-test') {
 			exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
@@ -81,6 +90,11 @@ configure(querydslProjects) {
 		annotationProcessor "jakarta.persistence:jakarta.persistence-api:2.2.3"
 		annotationProcessor "jakarta.annotation:jakarta.annotation-api:1.3.5"
 		annotationProcessor "jakarta.validation:jakarta.validation-api:3.1.0"
+		compileOnly 'org.projectlombok:lombok'
+		annotationProcessor 'org.projectlombok:lombok'
+
+
+
 	}
 
 	def generated = 'src/main/generated'

@@ -2,6 +2,8 @@ package com.lab.core.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
@@ -28,20 +30,24 @@ public abstract class AbstractAuditingEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     // 생성 시 값이 변경되지 않도록 설정
-    @Column(name = "created_by", updatable = false)
+    @Column(name = "created_by", nullable = false, length = 120)
+    @Size(max = 120)
+    @NotNull
     @JsonIgnore
     @CreatedBy
     private String createdBy;
 
     // 생성 시 값이 변경되지 않도록 설정
     @Column(name = "created_date", updatable = false)
+
     @JsonIgnore
     @CreatedDate
     private Instant createdDate;
 
     // 수정 시 값을 변경
     @JsonIgnore
-    @Column(name = "last_modified_by", nullable = false)
+    @Column(name = "last_modified_by", nullable = false, length = 120)
+    @Size(max = 120)
     @LastModifiedBy
     private String LastModifiedBy;
 
@@ -54,9 +60,11 @@ public abstract class AbstractAuditingEntity implements Serializable {
     // 엔티티가 처음 저장되기 전에 호출 (createdDate, updatedDate 초기화)
     @PrePersist
     public void prePersist() {
+
         if (createdDate == null) {
             this.createdDate = Instant.now();
         }
+
         if (lastModifiedDate == null) {
             this.lastModifiedDate = Instant.now();
         }

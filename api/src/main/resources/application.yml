@@ -7,11 +7,15 @@ spring:
     username: klaatus
     password: 1234
 
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+    rollback-file: classpath:db/changelog/db.rollback.xml
+    enabled: true
 
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: none                           # 스키마 자동 업데이트 update, create (운영 환경에서는 사용하지 말것)
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true

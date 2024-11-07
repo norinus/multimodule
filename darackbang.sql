@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `tbl_age_year_stat`
   COLLATE = utf8mb4_0900_ai_ci;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
-
+SET FOREIGN_KEY_CHECKS = 0;
 
 -- 테이블 klaatus.tbl_member 구조 내보내기
 DROP TABLE IF EXISTS `tbl_member`;
@@ -105,6 +105,11 @@ CREATE TABLE IF NOT EXISTS `tbl_member`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
+
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+commit ;
 
 DROP TABLE IF EXISTS `tbl_category`;
 CREATE TABLE `tbl_category`
@@ -786,7 +791,7 @@ CREATE TABLE IF NOT EXISTS `tbl_wish_list`
     `last_modified_by`   varchar(120) NOT NULL,
     `last_modified_date` timestamp    NOT NULL,
     `member_id`          bigint       NOT NULL,
-    `product_id`         bigint       NOT NULL,
+    `product_id`         bigint       NOT NULL,tbl_category
     PRIMARY KEY (`id`),
     KEY `member_id` (`member_id`),
     KEY `product_id` (`product_id`),
