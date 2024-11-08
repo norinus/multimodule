@@ -26,7 +26,7 @@ allprojects {
     version = '1.0-SNAPSHOT'
 
     java {
-        // Java 버전 설정
+        // Java 21 버전 설정
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
@@ -60,6 +60,7 @@ project(':core') {
 subprojects {
 
     java {
+        // Java 21 버전 설정
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
@@ -73,14 +74,16 @@ subprojects {
         }
     }
 
-    dependencies {
+    dependencies {\
+
         // Lombok을 모든 모듈에서 사용 가능하도록 설정
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
 
         // Lombok을 테스트에서 사용
+        // Lombok을 테스트에서 사용할 때 어노테이션 프로세서 적용
         testCompileOnly 'org.projectlombok:lombok'
-        testAnnotationProcessor 'org.projectlombok:lombok'  // Lombok을 테스트에서 사용할 때 어노테이션 프로세서 적용
+        testAnnotationProcessor 'org.projectlombok:lombok'
 
         // jakarta.persistence-api 3.1.0 추가
         implementation "jakarta.persistence:jakarta.persistence-api:3.1.0"

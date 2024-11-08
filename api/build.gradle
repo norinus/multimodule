@@ -5,15 +5,6 @@ plugins {
 bootJar { enabled = true }
 jar { enabled = false }
 
-sourceSets {
-    main {
-        resources {
-            srcDir '../core/src/main/resources'
-            exclude '**/db/changelog/**' // 필요 시 조정
-        }
-    }
-}
-
 
 dependencies {
     implementation project(":core")

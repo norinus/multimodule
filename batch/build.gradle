@@ -5,18 +5,6 @@ bootJar { enabled = true }
 jar { enabled = false }
 
 
-
-//리퀴베이스 xml 설정을 위한 작업
-sourceSets {
-    main {
-        resources {
-            srcDir '../core/src/main/resources'
-            exclude '**/db/changelog/**'  //중복제거
-        }
-    }
-}
-
-
 dependencies {
     implementation project(":core")
     // https://mvnrepository.com/artifact/org.apache.poi/poi
@@ -28,5 +16,9 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.batch:spring-batch-test'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.apache.derby:derby:10.17.1.0'
+    implementation 'org.springframework.batch:spring-batch-integration'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-quartz'
+    implementation 'org.springframework.retry:spring-retry'
+
 }
