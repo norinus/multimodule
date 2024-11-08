@@ -16,12 +16,13 @@ spring:
 
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.xml
+    rollback-file: classpath:/db/changelog/db.rollback.xml
     enabled: true
 
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: none                           # 스키마 자동 업데이트 update, create (운영 환경에서는 사용하지 말것)
+      ddl-auto: none # 스키마 자동 업데이트 update, create (운영 환경에서는 사용하지 말것)
     show-sql: true
     properties:
       hibernate.format_sql: true
