@@ -5,5 +5,9 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
     <include file="/db/changelog/db.changelog-v1-create-table-person.xml"/>
+    <!--회원 데이블 xml -->
+    <include file="/db/changelog/db.changelog-v1-create-table-member.xml"/>
+    <!--회원롤 데이블 xml -->
+    <include file="/db/changelog/db.changelog-v1-create-table-member_role.xml"/>
 
 </databaseChangeLog>

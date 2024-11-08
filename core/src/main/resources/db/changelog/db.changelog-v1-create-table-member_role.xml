@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="klaatus">
+        <!-- 회원 롤 테이블 -->
+        <createTable tableName="tbl_member_role">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="role" type="varchar2(50)"/>
+            <column name="created_by" type="varchar2(60)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by" type="varchar2(60)"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </createTable>
+
+        <!-- 외래키 지정-->
+        <addForeignKeyConstraint
+                baseTableName="tbl_member_role"
+                baseColumnNames="member_id"
+                constraintName="fk_member_role_member"
+                referencedTableName="tbl_member"
+                referencedColumnNames="id"/>
+
+    </changeSet>
+</databaseChangeLog>
