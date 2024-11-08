@@ -6,19 +6,39 @@ jar { enabled = false }
 
 
 dependencies {
+    // core 모듈을 의존성으로 추가
     implementation project(":core")
+
+    // Apache POI 라이브러리 (엑셀 파일 처리용)
     // https://mvnrepository.com/artifact/org.apache.poi/poi
     implementation 'org.apache.poi:poi:5.3.0'
+
+    // Apache POI OOXML 라이브러리 (엑셀 xlsx 파일 처리용)
     // https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
     implementation 'org.apache.poi:poi-ooxml:5.3.0'
 
+    // Spring Batch 스타터 의존성 (배치 처리 기능 제공)
     implementation 'org.springframework.boot:spring-boot-starter-batch'
+
+    // Spring Boot 테스트 스타터 의존성 (단위 및 통합 테스트 지원)
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // Spring Batch 테스트 의존성 (배치 작업 테스트 지원)
     testImplementation 'org.springframework.batch:spring-batch-test'
+
+    // Spring Data JPA 스타터 의존성 (JPA를 통한 데이터베이스 접근)
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // Spring Batch와 Spring Integration을 통합하는 의존성 (비동기 메시지 처리 지원)
     implementation 'org.springframework.batch:spring-batch-integration'
+
+    // Spring Boot Actuator 의존성 (애플리케이션의 모니터링 및 관리 기능 제공)
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    // Quartz 스케줄러 의존성 (배치 작업 스케줄링 기능 제공)
     implementation 'org.springframework.boot:spring-boot-starter-quartz'
+
+    // Spring Retry 의존성 (재시도 로직 구현 지원)
     implementation 'org.springframework.retry:spring-retry'
 
 }
