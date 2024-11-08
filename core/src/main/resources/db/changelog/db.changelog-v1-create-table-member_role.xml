@@ -3,28 +3,34 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
+    <!-- 첫 번째 ChangeSet: 회원 롤 테이블 생성 -->
     <changeSet id="1" author="klaatus">
-        <!-- 회원 롤 테이블 -->
         <createTable tableName="tbl_member_role">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="role" type="varchar2(50)"/>
+            <column name="member_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
             <column name="created_by" type="varchar2(60)"/>
             <column name="created_date" type="timestamp"/>
             <column name="last_modified_by" type="varchar2(60)"/>
             <column name="last_modified_date" type="timestamp"/>
         </createTable>
+    </changeSet>
 
-        <!-- 외래키 지정-->
+    <!-- 두 번째 ChangeSet: 외래 키 제약조건 추가 -->
+    <changeSet id="2" author="klaatus">
         <addForeignKeyConstraint
                 baseTableName="tbl_member_role"
                 baseColumnNames="member_id"
                 constraintName="fk_member_role_member"
                 referencedTableName="tbl_member"
-                referencedColumnNames="id"/>
-
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
     </changeSet>
+
 </databaseChangeLog>
