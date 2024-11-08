@@ -35,3 +35,4 @@ out/
 
 ### VS Code ###
 .vscode/
+/core/src/main/generated/com/lab/core/domain/
