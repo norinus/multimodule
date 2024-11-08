@@ -5,16 +5,24 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.proxy.HibernateProxy;
 
-import java.time.Instant;
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "tbl_event")
-public class Event {
+public class Event extends AbstractAuditingEntity implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,22 +56,19 @@ public class Event {
     @Column(name = "end_date")
     private LocalDate endDate;
 
-    @Size(max = 120)
-    @NotNull
-    @Column(name = "created_by", nullable = false, length = 120)
-    private String createdBy;
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
+        Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
+        if (thisEffectiveClass != oEffectiveClass) return false;
+        Event event = (Event) o;
+        return getId() != null && Objects.equals(getId(), event.getId());
+    }
 
-    @NotNull
-    @Column(name = "created_date", nullable = false)
-    private Instant createdDate;
-
-    @Size(max = 120)
-    @NotNull
-    @Column(name = "last_modified_by", nullable = false, length = 120)
-    private String lastModifiedBy;
-
-    @NotNull
-    @Column(name = "last_modified_date", nullable = false)
-    private Instant lastModifiedDate;
-
+    @Override
+    public final int hashCode() {
+        return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
+    }
 }
