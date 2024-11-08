@@ -5,14 +5,28 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                             http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <!-- 첫 번째 ChangeSet: 회원 롤 테이블 생성 -->
+    <!-- 첫 번째 ChangeSet: 이벤트 테이블 생성 -->
     <changeSet id="1" author="klaatus">
-        <createTable tableName="tbl_member_role">
+        <createTable tableName="tbl_event">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="role" type="varchar2(50)"/>
-            <column name="member_id" type="BIGINT">
+            <column name="title" type="varchar2(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="contents" type="varchar2(1000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="event_state_code" type="varchar(2)" defaultValue="02">
+                <constraints nullable="false"/>
+            </column>
+            <column name="event_image_name" type="varchar2(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="event_start_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="event_end_date" type="date">
                 <constraints nullable="false"/>
             </column>
             <column name="created_by" type="varchar2(60)">
@@ -29,16 +43,4 @@
             </column>
         </createTable>
     </changeSet>
-
-    <!-- 두 번째 ChangeSet: 외래 키 제약조건 추가 -->
-    <changeSet id="2" author="klaatus">
-        <addForeignKeyConstraint
-                baseTableName="tbl_member_role"
-                baseColumnNames="member_id"
-                constraintName="fk_member_role_member"
-                referencedTableName="tbl_member"
-                referencedColumnNames="id"
-                onDelete="CASCADE"/>
-    </changeSet>
-
 </databaseChangeLog>

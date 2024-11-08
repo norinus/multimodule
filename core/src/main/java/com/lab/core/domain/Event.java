@@ -26,35 +26,25 @@ public class Event extends AbstractAuditingEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Long id;
 
-    @Size(max = 50)
-    @NotNull
-    @Column(name = "title", nullable = false, length = 50)
+    @Column(length = 50, nullable = false)
     private String title;
 
-    @Size(max = 1000)
-    @NotNull
-    @Column(name = "contents", nullable = false, length = 1000)
+    @Column(length = 1000, nullable = false)
     private String contents;
 
-    @Size(max = 2)
-    @NotNull
-    @ColumnDefault("'02'")
-    @Column(name = "event_state", nullable = false, length = 2)
-    private String eventState;
+    @Column(name = "event_state_code", length = 2, nullable = false)
+    private String eventStateCode;
 
-    @Size(max = 255)
-    @NotNull
-    @Column(name = "file_name", nullable = false)
-    private String fileName;
+    @Column(name = "event_image_name", length = 250, nullable = false)
+    private String eventImageName;
 
-    @Column(name = "start_date")
-    private LocalDate startDate;
+    @Column(name = "event_start_date", nullable = false)
+    private LocalDate eventStartDate;
 
-    @Column(name = "end_date")
-    private LocalDate endDate;
+    @Column(name = "event_end_date", nullable = false)
+    private LocalDate eventEndDate;
 
     @Override
     public final boolean equals(Object o) {

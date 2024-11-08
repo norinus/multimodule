@@ -9,5 +9,7 @@
     <include file="/db/changelog/db.changelog-v1-create-table-member.xml"/>
     <!--회원롤 데이블 xml -->
     <include file="/db/changelog/db.changelog-v1-create-table-member_role.xml"/>
+    <!--event 데이블 xml -->
+    <include file="/db/changelog/db.changelog-v1-create-table-event.xml"/>
 
 </databaseChangeLog>
