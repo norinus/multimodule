@@ -2,8 +2,8 @@ plugins {
 }
 
 
-bootJar { enabled = false }
-jar { enabled = true }
+bootJar { enabled = true }
+jar { enabled = false }
 
 sourceSets {
     main {
