@@ -2,6 +2,7 @@ package com.lab.core.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -12,15 +13,11 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
+
 import java.io.Serializable;
 import java.time.Instant;
-import java.time.LocalDateTime;
 
-/**
- * Base abstract class for entities which will hold definitions for created, last modified,
- * created by, last modified by attributes.
- */
+
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @Getter

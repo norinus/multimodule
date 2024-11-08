@@ -1,6 +1,13 @@
 spring:
   application:
-    name: admin
+    name: core
+
+  profiles:
+    group:
+      api: api
+      batch: batch
+      admin: admin
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/klaatus?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
@@ -9,29 +16,24 @@ spring:
 
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.xml
-    rollback-file: classpath:db/changelog/db.rollback.xml
     enabled: true
 
   jpa:
     open-in-view: true
     hibernate:
       ddl-auto: none                           # 스키마 자동 업데이트 update, create (운영 환경에서는 사용하지 말것)
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
     properties:
       hibernate.format_sql: true
       dialect: org.hibernate.dialect.MySQL8InnoDBDialect
 
-
   jackson:
     serialization:
-      fail-on-empty-beans: false               # ? ? ??? ?? ??
+      fail-on-empty-beans: false
 
 logging:
   level:
-    root: INFO                                 # ?? ?? ??
-    org.springframework.web: DEBUG             # Spring Web ?? ?? ??
+    root: INFO                                   # 기본 로그 레벨
+    org.springframework.web: DEBUG               # Spring Web 로그 레벨
+    com.querydsl.sql: DEBUG
 
-server:
-  port: 8081

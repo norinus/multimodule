@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: batch
+
+  batch:
+    jdbc:
+      initialize-schema: always                  # Spring Batch 테이블 자동 생성 (필요 시 never로 설정)
+    job:
+      enabled: false
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema-mysql.sql
+
+server:
+  port: 8082
+
+## schema-mysql.sql MYSQ용 배치 테이블 생성 DDL 테이블 생성 되지 않는 경우 실행할것
