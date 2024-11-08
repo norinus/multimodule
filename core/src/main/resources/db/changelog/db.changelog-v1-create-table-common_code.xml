@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <!-- ChangeSet: tbl_common_group_code 테이블 생성 -->
+    <changeSet id="1" author="klaatus">
+        <createTable tableName="tbl_common_group_code">
+            <column name="common_group_code" type="varchar(20)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="common_group_code_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="varchar(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- ChangeSet: tbl_common_code 테이블 생성 -->
+    <changeSet id="2" author="klaatus">
+        <createTable tableName="tbl_common_code">
+            <column name="common_code" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="common_code_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_used" type="tinyint(1)" defaultValueNumeric="1">
+                <constraints nullable="false"/>
+            </column>
+            <column name="common_group_code" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="varchar(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <!-- 복합 기본 키 설정 -->
+        <addPrimaryKey tableName="tbl_common_code" columnNames="common_code, common_group_code"/>
+
+        <!-- Foreign Key Constraint -->
+        <addForeignKeyConstraint
+                baseTableName="tbl_common_code"
+                baseColumnNames="common_group_code"
+                constraintName="fk_common_code_common_group_code"
+                referencedTableName="tbl_common_group_code"
+                referencedColumnNames="common_group_code"/>
+    </changeSet>
+</databaseChangeLog>
