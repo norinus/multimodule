@@ -1,149 +1,151 @@
 buildscript {
-	ext {
-		springBootVersion = '3.1.4'
-	}
+    ext {
+        springBootVersion = '3.1.4'
+    }
 
-	repositories {
-		mavenCentral()
-		gradlePluginPortal()
-	}
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
 
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath "io.spring.gradle:dependency-management-plugin:1.1.6"  // 최신 버전 사용 권장
-	}
+    dependencies {
+        // Spring Boot Gradle 플러그인 및 Dependency Management 플러그인 추가
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "io.spring.gradle:dependency-management-plugin:1.1.6"  // 최신 버전 사용 권장
+    }
 }
 
 allprojects {
-	apply plugin: 'java'
-	apply plugin: 'io.spring.dependency-management'
-	apply plugin: 'org.springframework.boot'
 
-	group = 'com.lab'
-	version = '1.0-SNAPSHOT'
+    // 모든 프로젝트에 Java, Spring Dependency Management, Spring Boot 플러그인 적용
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.springframework.boot'
 
-	java {
-		sourceCompatibility = JavaVersion.VERSION_17
-		targetCompatibility = JavaVersion.VERSION_17
-	}
+    group = 'com.lab'
+    version = '1.0-SNAPSHOT'
 
-	repositories {
-		mavenCentral()
-		gradlePluginPortal()
-	}
+    java {
+        // Java 버전 설정
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
+
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
 }
-// root 프로젝트의 build 태스크 비활성화
+
+// root 프로젝트에서 build, bootJar, jar, assemble, compileJava 태스크 비활성화
 tasks.named('build') {
-	doLast {
-		delete file("${project.rootDir}/build")
-	}
+    enabled = false
+    doLast {
+        delete file("${project.rootDir}/build") // build 디렉토리 삭제
+    }
 }
 
-// 필요 시, bootJar 및 jar 태스크도 비활성화
-tasks.named('bootJar').configure {
-	enabled = false
-}
-
-tasks.named('jar').configure {
-	enabled = false
-}
-
-// root 프로젝트에서 build 디렉토리 생성을 막기 위해 assemble 태스크도 비활성화
-tasks.named('assemble') {
-	enabled = false
-}
-
-// root 프로젝트에서 compileJava 태스크 비활성화
-tasks.named('compileJava') {
-	enabled = false
+['bootJar', 'jar', 'assemble', 'compileJava'].each { taskName ->
+    tasks.named(taskName).configure { enabled = false }
 }
 
 
 project(':core') {
-	tasks.named('test') {
-		enabled = false
-	}
+    // core 모듈에서 test 태스크 비활성화
+    tasks.named('test') {
+        enabled = false
+    }
 }
 
 subprojects {
-	java {
-		sourceCompatibility = JavaVersion.VERSION_17  // Java 21 버전 호환 확인 필요
-		targetCompatibility = JavaVersion.VERSION_17
-	}
 
-	configurations {
-		compileOnly {
-			extendsFrom annotationProcessor
-		}
-		testCompileOnly {
-			extendsFrom annotationProcessor
-		}
-	}
+    java {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
 
-	dependencies {
-		// Lombok을 모든 모듈에서 사용 가능하도록 설정
-		compileOnly 'org.projectlombok:lombok'
-		annotationProcessor 'org.projectlombok:lombok'
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+        testCompileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
 
-		testCompileOnly 'org.projectlombok:lombok'          // Lombok을 테스트에서 사용
-		testAnnotationProcessor 'org.projectlombok:lombok'  // Lombok을 테스트에서 사용할 때 어노테이션 프로세서 적용
+    dependencies {
+        // Lombok을 모든 모듈에서 사용 가능하도록 설정
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
 
-		// jakarta.persistence-api 3.1.0 추가
-		implementation "jakarta.persistence:jakarta.persistence-api:3.1.0"
+        // Lombok을 테스트에서 사용
+        testCompileOnly 'org.projectlombok:lombok'
+        testAnnotationProcessor 'org.projectlombok:lombok'  // Lombok을 테스트에서 사용할 때 어노테이션 프로세서 적용
 
-		// Jakarta Persistence API 추가
-		annotationProcessor "jakarta.persistence:jakarta.persistence-api:3.1.0"
+        // jakarta.persistence-api 3.1.0 추가
+        implementation "jakarta.persistence:jakarta.persistence-api:3.1.0"
 
-		// 기타 종속성
-		implementation 'org.liquibase:liquibase-core:4.30.0'
-		implementation 'org.apache.commons:commons-lang3:3.17.0'
-		implementation 'org.apache.commons:commons-collections4:4.4'
-		implementation 'com.mysql:mysql-connector-j:9.1.0'
-		implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+        // Jakarta Persistence API 추가
+        annotationProcessor "jakarta.persistence:jakarta.persistence-api:3.1.0"
 
-		testImplementation('org.springframework.boot:spring-boot-starter-test') {
-			exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-		}
-	}
-	test {
-		useJUnitPlatform()
-	}
+        // 기타 종속성
+        implementation 'org.liquibase:liquibase-core:4.30.0'
+        implementation 'org.apache.commons:commons-lang3:3.17.0'
+        implementation 'org.apache.commons:commons-collections4:4.4'
+        implementation 'com.mysql:mysql-connector-j:9.1.0'
+        implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+
+        // 테스트 종속성 설정
+        testImplementation('org.springframework.boot:spring-boot-starter-test') {
+            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        }
+    }
+
+    test {
+        useJUnitPlatform() // JUnit 5 플랫폼 사용
+    }
 }
 
-/* QueryDSL 라이브러리를 사용하는 모듈 리스트 */
-def querydslProjects = [
-		project(":core"),
-		project(":api"),
-		project(":admin"),
-		project(":batch")
-]
+/* QueryDSL 라이브러리를 사용하는 모듈 리스트 정의 */
+def querydslProjects = [project(":core"),
+                        project(":api"),
+                        project(":admin"),
+                        project(":batch")]
 
 configure(querydslProjects) {
 
-	apply plugin: "io.spring.dependency-management"
+    apply plugin: "io.spring.dependency-management"
 
-	dependencies {
-		//Querydsl 추가
-		implementation 'com.querydsl:querydsl-jpa:5.1.0:jakarta'
-		annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
-		annotationProcessor "jakarta.annotation:jakarta.annotation-api"
-		annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+    dependencies {
+        // QueryDSL 종속성 추가
+        implementation 'com.querydsl:querydsl-jpa:5.1.0:jakarta'
+        annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
+        annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+        annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 
-		compileOnly 'org.projectlombok:lombok'
-		annotationProcessor 'org.projectlombok:lombok'
-	}
+        // Lombok 설정
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+    }
 
-	def generated = 'src/main/generated'
+    // QueryDSL 생성된 파일을 저장할 폴더 설정
+    def generated = 'src/main/generated'
 
-	sourceSets {
-		main.java.srcDirs += [generated]
-	}
+    sourceSets {
+        main {
+            java {
+                srcDir generated  // generated 폴더를 main 소스 세트로 추가
+            }
+        }
+    }
 
-	tasks.withType(JavaCompile).configureEach {
-		options.generatedSourceOutputDirectory = file(generated)
-	}
+    tasks.withType(JavaCompile).configureEach {
+        // QueryDSL 생성 파일의 출력 디렉토리를 설정
+        options.generatedSourceOutputDirectory = file(generated)
+    }
 
-	clean.doLast {
-		file(generated).deleteDir()
-	}
+    // clean 작업 시 generated 폴더 삭제
+    clean.doLast {
+        file(generated).deleteDir()
+    }
 }
