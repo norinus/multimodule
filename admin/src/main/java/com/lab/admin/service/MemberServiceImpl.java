@@ -1,23 +1,18 @@
 package com.lab.admin.service;
 
-import com.lab.core.domain.Member;
-import com.lab.core.domain.MemberRole;
+import com.lab.admin.dto.MemberQueryDTO;
+import com.lab.admin.repository.querydsl.MemberQueryDslRepository;
 import com.lab.core.dto.member.MemberDTO;
-import com.lab.core.dto.member.MemberRoleDTO;
-import com.lab.core.enums.RoleType;
 import com.lab.core.mapper.member.MemberMapper;
 import com.lab.core.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
 import java.util.*;
 
 @Transactional
@@ -26,6 +21,8 @@ import java.util.*;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
+
+    private final MemberQueryDslRepository memberQueryDslRepository;
 
     private final MemberMapper memberMapper;
 
@@ -53,6 +50,11 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Page<MemberDTO> findAll(Pageable pageable) {
         return memberRepository.findAll(pageable).map(memberMapper::toDto);
+    }
+
+    @Override
+    public Page<MemberQueryDTO> findQuerydsl(Pageable pageable) {
+        return memberQueryDslRepository.findByQueryList(pageable);
     }
 
     @Override

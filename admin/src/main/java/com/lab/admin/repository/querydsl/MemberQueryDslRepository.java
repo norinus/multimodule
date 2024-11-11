@@ -1,15 +1,12 @@
-package com.lab.core.repository.querydsl;
+package com.lab.admin.repository.querydsl;
 
+import com.lab.admin.dto.MemberQueryDTO;
 import com.lab.core.domain.Member;
 import com.lab.core.domain.QMember;
-import com.lab.core.dto.member.MemberDTO;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
@@ -25,12 +22,12 @@ public class MemberQueryDslRepository {
 
     private final QMember qMember = new QMember("qMember");
 
-    public Page<MemberDTO> findByQueryList(Pageable pageable) {
+    public Page<MemberQueryDTO> findByQueryList(Pageable pageable) {
 
-        List<MemberDTO> result = queryFactory
+        List<MemberQueryDTO> result = queryFactory
                 .select(
                         Projections.fields(
-                                MemberDTO.class,
+                                MemberQueryDTO.class,
                                 qMember.id,
                                 qMember.name,
                                 qMember.email

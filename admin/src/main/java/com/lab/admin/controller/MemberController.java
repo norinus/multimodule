@@ -1,5 +1,6 @@
 package com.lab.admin.controller;
 
+import com.lab.admin.dto.MemberQueryDTO;
 import com.lab.admin.service.MemberService;
 import com.lab.core.dto.member.MemberDTO;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +45,17 @@ public class MemberController {
     public Page<MemberDTO> findAll( @PageableDefault(size = 12, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return memberService.findAll(pageable);
     }
+
+    /**
+     * 사용자 리스트 페이지 객체
+     * @param pageable
+     * @return
+     */
+    @GetMapping("/query")
+    public Page<MemberQueryDTO> findQuerydsl(@PageableDefault(size = 12, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        return memberService.findQuerydsl(pageable);
+    }
+
 
     /**
      * 사용자 상세 정보 조회
