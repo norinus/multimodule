@@ -1,5 +1,6 @@
 package com.lab.core.dto.member;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lab.core.domain.MemberRole;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -84,6 +85,7 @@ public class MemberDTO {
      * 멤버 기록이 생성된 날짜 및 시간
      */
     @Schema(description = "생성일", requiredMode = Schema.RequiredMode.REQUIRED)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private Instant createdDate;
 
     /**
@@ -96,5 +98,6 @@ public class MemberDTO {
      * 멤버 기록이 마지막으로 수정된 날짜 및 시간
      */
     @Schema(description = "수정일", requiredMode = Schema.RequiredMode.REQUIRED)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private Instant LastModifiedDate;
 }

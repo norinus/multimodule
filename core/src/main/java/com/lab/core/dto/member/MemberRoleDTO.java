@@ -1,5 +1,6 @@
 package com.lab.core.dto.member;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lab.core.enums.RoleType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;

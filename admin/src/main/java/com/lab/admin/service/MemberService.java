@@ -4,7 +4,7 @@ import com.lab.core.dto.member.MemberDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface MemerService {
+public interface MemberService {
 
     Page<MemberDTO> findAll(Pageable pageable);
 

@@ -2,6 +2,8 @@ package com.lab.core.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.lab.core.config.CustomInstantSerializer;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -39,6 +41,7 @@ public abstract class AbstractAuditingEntity implements Serializable {
 
     @JsonIgnore
     @CreatedDate
+    @JsonSerialize(using = CustomInstantSerializer.class)
     private Instant createdDate;
 
     // 수정 시 값을 변경
@@ -52,6 +55,7 @@ public abstract class AbstractAuditingEntity implements Serializable {
     @JsonIgnore
     @Column(name = "last_modified_date", nullable = false)
     @LastModifiedDate
+    @JsonSerialize(using = CustomInstantSerializer.class)
     private Instant lastModifiedDate;
 
     // 엔티티가 처음 저장되기 전에 호출 (createdDate, updatedDate 초기화)
