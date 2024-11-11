@@ -8,9 +8,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,9 +23,44 @@ public class MemberController {
 
     private final MemberService memberService;
 
+
+
+    /**
+     * 사용자 리스트 페이지 객체
+     * @param pageable
+     * @return
+     */
+    @PostMapping("")
+    public ResponseEntity<Map<String,String>> create( @RequestBody MemberDTO memberDTO) {
+        return memberService.create(memberDTO);
+    }
+
+    /**
+     * 사용자 리스트 페이지 객체
+     * @param pageable
+     * @return
+     */
     @GetMapping("")
     public Page<MemberDTO> findAll( @PageableDefault(size = 12, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return memberService.findAll(pageable);
     }
 
+    /**
+     * 사용자 상세 정보 조회
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<MemberDTO> findById(@PathVariable Long id) {
+        return memberService.findById(id);
+    }
+    /**
+     * 사용자 삭제
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String,String>> delete(@PathVariable Long id) {
+        return memberService.delete(id);
+    }
 }

@@ -1,6 +1,6 @@
 package com.lab.core.dto.member;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lab.core.enums.RoleType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -25,9 +25,6 @@ public class MemberRoleDTO {
     @Schema(description = "역할 유형", requiredMode = Schema.RequiredMode.REQUIRED)
     private RoleType role;
 
-    /** 멤버 */
-    @Schema(description = "사용자", requiredMode = Schema.RequiredMode.REQUIRED)
-    private MemberDTO member;
     /**
      * 이 멤버 역할 기록을 생성한 엔티티의 사용자 이름 또는 식별자
      */

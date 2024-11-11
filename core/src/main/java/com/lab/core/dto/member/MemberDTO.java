@@ -1,6 +1,8 @@
 package com.lab.core.dto.member;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.lab.core.domain.MemberRole;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -73,7 +75,7 @@ public class MemberDTO {
      * 멤버에게 할당된 역할 목록
      */
     @Schema(description = "역할 목록", requiredMode = Schema.RequiredMode.REQUIRED)
-    private List<MemberRole> memberRoles;
+    private List<MemberRoleDTO> memberRoles;
 
     /**
      * 이 멤버 기록을 생성한 엔티티의 사용자 이름 또는 식별자

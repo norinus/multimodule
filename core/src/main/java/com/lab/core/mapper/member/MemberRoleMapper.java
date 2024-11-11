@@ -4,6 +4,7 @@ package com.lab.core.mapper.member;
 import com.lab.core.domain.MemberRole;
 import com.lab.core.dto.member.MemberRoleDTO;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface MemberRoleMapper {
