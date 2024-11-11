@@ -19,6 +19,7 @@ public class MemberRole extends AbstractAuditingEntity implements Serializable {
     private Long id;
 
     @Column(length = 50)
+    @Enumerated(EnumType.STRING)
     private RoleType role;
 
     @ManyToOne(fetch = FetchType.LAZY)

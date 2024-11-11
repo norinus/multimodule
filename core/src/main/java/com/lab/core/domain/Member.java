@@ -41,7 +41,7 @@ public class Member extends AbstractAuditingEntity implements Serializable {
     @Column(name = "member_state_code", length = 2, nullable = false, columnDefinition = "VARCHAR(2) DEFAULT '01'")
     private String memberStateCode = "01";
 
-    @OneToMany(mappedBy = "memberRole")
+    @OneToMany(mappedBy = "member")
     private List<MemberRole> memberRoles;
 
     @Override

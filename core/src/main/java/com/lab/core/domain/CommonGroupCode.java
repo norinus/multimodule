@@ -22,7 +22,6 @@ public class CommonGroupCode extends AbstractAuditingEntity implements Serializa
     @Column(name = "common_group_code_name", length = 50, nullable = false)
     private String commonGroupCodeName;
 
-
     @OneToMany(mappedBy = "commonGroupCode")
     private List<CommonCode> commonCodes;
 

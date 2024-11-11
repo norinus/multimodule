@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="klaatus">
+        <!-- tbl_common_group_code 테이블에 데이터 삽입 -->
+        <insert tableName="tbl_common_group_code">
+            <column name="common_group_code" value="MEMBER_STATE_CODE"/>
+            <column name="common_group_code_name" value="회원상태코드"/>
+            <column name="created_by" value="SYSTEM"/>
+            <column name="created_date" valueDate="2024-01-01T00:00:00"/>
+            <column name="last_modified_by" value="SYSTEM"/>
+            <column name="last_modified_date" valueDate="2024-01-01T00:00:00"/>
+        </insert>
+        <insert tableName="tbl_common_group_code">
+            <column name="common_group_code" value="EVENT_STATE_CODE"/>
+            <column name="common_group_code_name" value="이벤트상태코드"/>
+            <column name="created_by" value="SYSTEM"/>
+            <column name="created_date" valueDate="2024-01-01T00:00:00"/>
+            <column name="last_modified_by" value="SYSTEM"/>
+            <column name="last_modified_date" valueDate="2024-01-01T00:00:00"/>
+        </insert>
+
+        <!-- rollback 블록으로 각 삽입된 행 삭제 설정 -->
+        <rollback>
+            <delete tableName="tbl_common_group_code">
+                <where>common_group_code = 'MEMBER_STATE_CODE'</where>
+            </delete>
+            <delete tableName="tbl_common_group_code">
+                <where>common_group_code = 'EVENT_STATE_CODE'</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2" author="klaatus">
+        <!-- tbl_common_code 테이블에 데이터 삽입 -->
+        <insert tableName="tbl_common_code">
+            <column name="common_code" value="01"/>
+            <column name="common_code_name" value="활동"/>
+            <column name="is_used" valueNumeric="1"/>
+            <column name="common_group_code" value="MEMBER_STATE_CODE"/>
+            <column name="created_by" value="SYSTEM"/>
+            <column name="created_date" valueDate="2024-01-01T00:00:00"/>
+            <column name="last_modified_by" value="SYSTEM"/>
+            <column name="last_modified_date" valueDate="2024-01-01T00:00:00"/>
+        </insert>
+        <insert tableName="tbl_common_code">
+            <column name="common_code" value="02"/>
+            <column name="common_code_name" value="탈퇴"/>
+            <column name="is_used" valueNumeric="1"/>
+            <column name="common_group_code" value="MEMBER_STATE_CODE"/>
+            <column name="created_by" value="SYSTEM"/>
+            <column name="created_date" valueDate="2024-01-01T00:00:00"/>
+            <column name="last_modified_by" value="SYSTEM"/>
+            <column name="last_modified_date" valueDate="2024-01-01T00:00:00"/>
+        </insert>
+        <insert tableName="tbl_common_code">
+            <column name="common_code" value="03"/>
+            <column name="common_code_name" value="제한"/>
+            <column name="is_used" valueNumeric="1"/>
+            <column name="common_group_code" value="MEMBER_STATE_CODE"/>
+            <column name="created_by" value="SYSTEM"/>
+            <column name="created_date" valueDate="2024-01-01T00:00:00"/>
+            <column name="last_modified_by" value="SYSTEM"/>
+            <column name="last_modified_date" valueDate="2024-01-01T00:00:00"/>
+        </insert>
+
+        <!-- rollback 블록으로 각 삽입된 행 삭제 설정 -->
+        <rollback>
+            <delete tableName="tbl_common_code">
+                <where>common_code = '01' AND common_group_code = 'MEMBER_STATE_CODE'</where>
+            </delete>
+            <delete tableName="tbl_common_code">
+                <where>common_code = '02' AND common_group_code = 'MEMBER_STATE_CODE'</where>
+            </delete>
+            <delete tableName="tbl_common_code">
+                <where>common_code = '03' AND common_group_code = 'MEMBER_STATE_CODE'</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="3" author="klaatus">
+        <!-- 이벤트 상태 코드에 대한 tbl_common_code 데이터 삽입 -->
+        <insert tableName="tbl_common_code">
+            <column name="common_code" value="01"/>
+            <column name="common_code_name" value="진행중"/>
+            <column name="is_used" valueNumeric="1"/>
+            <column name="common_group_code" value="EVENT_STATE_CODE"/>
+            <column name="created_by" value="SYSTEM"/>
+            <column name="created_date" valueDate="2024-01-01T00:00:00"/>
+            <column name="last_modified_by" value="SYSTEM"/>
+            <column name="last_modified_date" valueDate="2024-01-01T00:00:00"/>
+        </insert>
+        <insert tableName="tbl_common_code">
+            <column name="common_code" value="02"/>
+            <column name="common_code_name" value="대기중"/>
+            <column name="is_used" valueNumeric="1"/>
+            <column name="common_group_code" value="EVENT_STATE_CODE"/>
+            <column name="created_by" value="SYSTEM"/>
+            <column name="created_date" valueDate="2024-01-01T00:00:00"/>
+            <column name="last_modified_by" value="SYSTEM"/>
+            <column name="last_modified_date" valueDate="2024-01-01T00:00:00"/>
+        </insert>
+        <insert tableName="tbl_common_code">
+            <column name="common_code" value="03"/>
+            <column name="common_code_name" value="종료"/>
+            <column name="is_used" valueNumeric="1"/>
+            <column name="common_group_code" value="EVENT_STATE_CODE"/>
+            <column name="created_by" value="SYSTEM"/>
+            <column name="created_date" valueDate="2024-01-01T00:00:00"/>
+            <column name="last_modified_by" value="SYSTEM"/>
+            <column name="last_modified_date" valueDate="2024-01-01T00:00:00"/>
+        </insert>
+
+        <!-- rollback 블록으로 각 삽입된 행 삭제 설정 -->
+        <rollback>
+            <delete tableName="tbl_common_code">
+                <where>common_code = '01' AND common_group_code = 'EVENT_STATE_CODE'</where>
+            </delete>
+            <delete tableName="tbl_common_code">
+                <where>common_code = '02' AND common_group_code = 'EVENT_STATE_CODE'</where>
+            </delete>
+            <delete tableName="tbl_common_code">
+                <where>common_code = '03' AND common_group_code = 'EVENT_STATE_CODE'</where>
+            </delete>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

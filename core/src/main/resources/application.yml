@@ -16,7 +16,6 @@ spring:
 
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.xml
-    rollback-file: classpath:/db/changelog/db.rollback.xml
     enabled: true
 
   jpa:
@@ -27,6 +26,7 @@ spring:
     properties:
       hibernate.format_sql: true
       dialect: org.hibernate.dialect.MySQL8InnoDBDialect
+    #database-platform: org.hibernate.dialect.MySQL8InnoDBDialect <--dialect 와 같은 작업
 
   jackson:
     serialization:

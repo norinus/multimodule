@@ -67,6 +67,7 @@
                 baseColumnNames="common_group_code"
                 constraintName="fk_common_code_common_group_code"
                 referencedTableName="tbl_common_group_code"
-                referencedColumnNames="common_group_code"/>
+                referencedColumnNames="common_group_code"
+                onDelete="CASCADE"/>
     </changeSet>
 </databaseChangeLog>

@@ -53,7 +53,7 @@ tasks.named('build') {
 project(':core') {
     // core 모듈에서 test 태스크 비활성화
     tasks.named('test') {
-        enabled = false
+        enabled =   false
     }
 }
 
