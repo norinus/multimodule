@@ -13,8 +13,6 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {MemberRoleMapper.class})
 public interface MemberMapper extends EntityMapper<MemberDTO, Member> {
 
-
-    @Mapping(target = "memberRoles", ignore = true)
     MemberDTO toDto(Member member);
 
     @Mapping(target = "memberRoles", ignore = true)

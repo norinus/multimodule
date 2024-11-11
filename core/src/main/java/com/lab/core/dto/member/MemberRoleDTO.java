@@ -25,6 +25,7 @@ public class MemberRoleDTO {
     @Schema(description = "역할 유형", requiredMode = Schema.RequiredMode.REQUIRED)
     private RoleType role;
 
+    @JsonIgnore
     private MemberDTO member;
     /**
      * 이 멤버 역할 기록을 생성한 엔티티의 사용자 이름 또는 식별자
