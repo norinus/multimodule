@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
+
 @SpringBootApplication
 @EnableJpaAuditing
 @ComponentScan(basePackages = {"com.lab.core", "com.lab.api"}) // core 및 admin 패키지 스캔

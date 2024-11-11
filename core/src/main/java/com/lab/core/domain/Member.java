@@ -1,8 +1,13 @@
 package com.lab.core.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,7 +16,11 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "tbl_member")
+@ToString
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") // 고유 ID로 직렬화
 public class Member extends AbstractAuditingEntity implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,24 +50,9 @@ public class Member extends AbstractAuditingEntity implements Serializable {
     @Column(name = "member_state_code", length = 2, nullable = false, columnDefinition = "VARCHAR(2) DEFAULT '01'")
     private String memberStateCode = "01";
 
-    @OneToMany(mappedBy = "member")
+    @JsonManagedReference// 순환 참조 방지를 위해 제외
+    @ToString.Exclude // 순환 참조 방지를 위해 제외
+    //FetchType.EAGER 즉시 로딩
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<MemberRole> memberRoles;
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "(" +
-                "id = " + getId() + ", " +
-                "email = " + getEmail() + ", " +
-                "name = " + getName() + ", " +
-                "password = " + getPassword() + ", " +
-                "mobileNumber = " + getMobileNumber() + ", " +
-                "isDeleted = " + getIsDeleted() + ", " +
-                "isRestricted = " + getIsRestricted() + ", " +
-                "restrictedReason = " + getRestrictedReason() + ", " +
-                "memberStateCode = " + getMemberStateCode() + ", " +
-                "createdBy = " + getCreatedBy() + ", " +
-                "createdDate = " + getCreatedDate() + ", " +
-                "LastModifiedBy = " + getLastModifiedBy() + ", " +
-                "lastModifiedDate = " + getLastModifiedDate() + ")";
-    }
 }

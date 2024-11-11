@@ -24,24 +24,40 @@ public class MemberTest {
     @Test
     void insertMember(){
 
-        List<MemberRole> memberRoles = new ArrayList<>();
-        MemberRole memberRole = new MemberRole();
-        memberRole.setRole(RoleType.ADMIN);
-        memberRoles.add(memberRole);
-
         Member member = new Member();
-        member.setEmail("test1@test.com");
-        member.setName("test1");
+        member.setEmail("test@test.com");
+        member.setName("test");
         member.setPassword("1234");
-        member.setMemberRoles(memberRoles);
+
         member.setCreatedBy("SYSTEM");
         member.setCreatedDate(Instant.now());
         member.setLastModifiedBy("SYSTEM");
         member.setLastModifiedDate(Instant.now());
+
+
+        List<MemberRole> memberRoles = new ArrayList<>();
+        MemberRole memberRole = new MemberRole();
+        memberRole.setRole(RoleType.ADMIN);
+        memberRole.setMember(member);
+        memberRole.setCreatedBy("SYSTEM");
+        memberRole.setCreatedDate(Instant.now());
+        memberRole.setLastModifiedBy("SYSTEM");
+        memberRole.setLastModifiedDate(Instant.now());
+        memberRoles.add(memberRole);
+        member.setMemberRoles(memberRoles);
+
         memberRepository.save(member);
     }
 
 
+    @Test
+    void selectMember(){
 
+        memberRepository.findById(5L).ifPresentOrElse(member->{
+            log.info(member.toString());
+        },()->{
+            log.error("회원정보가 없습니다.");
+        });
 
+    }
 }

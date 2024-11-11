@@ -1,6 +1,7 @@
 package com.lab.core.dto.member;
 
 import com.lab.core.enums.RoleType;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -20,19 +21,33 @@ public class MemberRoleDTO {
     private Long id;
 
     /** 멤버의 역할 유형 */
+    @Schema(description = "역할 유형", requiredMode = Schema.RequiredMode.REQUIRED)
     private RoleType role;
 
+    /** 멤버 */
+    @Schema(description = "사용자", requiredMode = Schema.RequiredMode.REQUIRED)
     private MemberDTO member;
-
-    /** 이 멤버 역할 기록을 생성한 사용자 또는 엔티티 */
+    /**
+     * 이 멤버 역할 기록을 생성한 엔티티의 사용자 이름 또는 식별자
+     */
+    @Schema(description = "생성자", requiredMode = Schema.RequiredMode.REQUIRED)
     private String createdBy;
 
-    /** 멤버 역할 기록이 생성된 날짜 및 시간 */
+    /**
+     * 멤버 역할이 생성된 날짜 및 시간
+     */
+    @Schema(description = "생성일", requiredMode = Schema.RequiredMode.REQUIRED)
     private Instant createdDate;
 
-    /** 이 멤버 역할 기록을 마지막으로 수정한 사용자 또는 엔티티 */
+    /**
+     * 이 멤버 역할을 마지막으로 수정한 엔티티의 사용자 이름 또는 식별자
+     */
+    @Schema(description = "수정자", requiredMode = Schema.RequiredMode.REQUIRED)
     private String LastModifiedBy;
 
-    /** 멤버 역할 기록이 마지막으로 수정된 날짜 및 시간 */
-    private Instant lastModifiedDate;
+    /**
+     * 멤버 역할이 마지막으로 수정된 날짜 및 시간
+     */
+    @Schema(description = "수정일", requiredMode = Schema.RequiredMode.REQUIRED)
+    private Instant LastModifiedDate;
 }

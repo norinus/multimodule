@@ -39,7 +39,6 @@ allprojects {
 
 // root 프로젝트에서 build, bootJar, jar, assemble, compileJava 태스크 비활성화
 tasks.named('build') {
-    enabled = false
     doLast {
         delete file("${project.rootDir}/build") // build 디렉토리 삭제
     }
@@ -136,24 +135,22 @@ configure(querydslProjects) {
         annotationProcessor 'org.projectlombok:lombok'
     }
 
-    // QueryDSL 생성된 파일을 저장할 폴더 설정
-    def generated = 'src/main/generated'
+    def generatedDir = file("build/generated/sources/annotationProcessor/java/main")
 
     sourceSets {
         main {
             java {
-                srcDir generated  // generated 폴더를 main 소스 세트로 추가
+                srcDirs +=  generatedDir // generated 폴더를 main 소스 세트로 추가
             }
         }
     }
 
     tasks.withType(JavaCompile).configureEach {
-        // QueryDSL 생성 파일의 출력 디렉토리를 설정
-        options.generatedSourceOutputDirectory = file(generated)
+        options.getGeneratedSourceOutputDirectory().set(file(generatedDir))
     }
 
     // clean 작업 시 generated 폴더 삭제
     clean.doLast {
-        file(generated).deleteDir()
+        generatedDir.deleteDir()
     }
 }
